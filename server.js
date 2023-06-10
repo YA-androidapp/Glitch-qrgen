@@ -1,4 +1,4 @@
-// Copyright (c) 2023 YA-androidapp(https://github.com/YA-androidapp) All rights reserved. 
+// Copyright (c) 2023 YA-androidapp(https://github.com/YA-androidapp) All rights reserved.
 
 
 const path = require("path");
@@ -12,17 +12,15 @@ fastify.get("/", async (request, reply) => {
   if (request.query.msg) {
     const url = await QRCode.toDataURL(request.query.msg)
     console.log(url)
-    reply.type('application/json').code(200)
-    return { dataURL: url }
+    return url
   }
 });
 
 fastify.get("/svg", async (request, reply) => {
   if (request.query.msg) {
-    const url = await QRCode.toString(request.query.msg, {type:'svg'})
-    console.log(url)
-    reply.type('application/json').code(200)
-    return { dataURL: url }
+    const svg = await QRCode.toString(request.query.msg, { type: 'svg' })
+    reply.type(' image/svg+xml').code(200)
+    return svg
   }
 });
 
